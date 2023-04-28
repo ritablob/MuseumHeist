@@ -25,7 +25,7 @@ public class LEDBlinking : MonoBehaviour
 
         if (timePassed >= currentSpeed) 
         {
-            if(controller != null) { controller.SwitchLEDState(); Debug.Log("Send LED signal"); }
+            if(controller != null) { controller.SwitchLEDState(); }
             timePassed = 0;
         }
 
