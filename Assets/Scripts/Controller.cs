@@ -7,6 +7,8 @@ using System;
 
 public class Controller : MonoBehaviour
 {
+    [SerializeField] private PlayerMovement player;
+
     SerialPort sp = new SerialPort("COM3", 9600);
     bool isStreaming = false;
 
@@ -53,13 +55,12 @@ public class Controller : MonoBehaviour
     {
         if (isStreaming)
         {
-            /*
             string value = ReadSerialPort();
             if (value != null) 
             {
                 Debug.Log(value);
+                player.Rotate(int.Parse(value));
             }
-            */
             if (Input.GetKeyDown(KeyCode.Space))
                 SwitchLEDState();
         }

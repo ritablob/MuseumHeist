@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
     bool buttonPressed = false;
 
     [SerializeField] private float movementSpeed = 10f;
+    [SerializeField] private float rotationSpeed;
+
+    private int lastRotation;
 
     void Start()
     {
@@ -16,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        // remove once arduino is set up
         if (Input.GetKeyDown(KeyCode.W)) buttonPressed = true;
         if (Input.GetKeyUp(KeyCode.W)) buttonPressed = false;
 
@@ -23,5 +27,15 @@ public class PlayerMovement : MonoBehaviour
         {
             controller.Move(transform.forward * Time.deltaTime * movementSpeed);
         }
+    }
+
+    public void Rotate(int value)
+    {
+        // rotate based on difference between value and last value
+        float rotationAmount = (value - lastRotation) * rotationSpeed;
+        transform.Rotate(Vector3.up, rotationAmount);
+
+        // save value for next time
+        lastRotation = value;
     }
 }
