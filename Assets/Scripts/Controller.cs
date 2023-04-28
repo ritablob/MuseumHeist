@@ -12,8 +12,6 @@ public class Controller : MonoBehaviour
     SerialPort sp = new SerialPort("COM3", 9600);
     bool isStreaming = false;
 
-    bool ledOn = false;
-
     void OpenConnection()
     {
         isStreaming = true;
@@ -61,14 +59,11 @@ public class Controller : MonoBehaviour
                 Debug.Log(value);
                 player.Rotate(int.Parse(value));
             }
-            if (Input.GetKeyDown(KeyCode.Space))
-                SwitchLEDState();
         }
     }
 
-    public void SwitchLEDState()
+    public void SwitchLEDState(bool ledOn)
     {
-        ledOn = !ledOn;
         sp.WriteLine("L" + (ledOn ? "1" : "0"));
     }
 }

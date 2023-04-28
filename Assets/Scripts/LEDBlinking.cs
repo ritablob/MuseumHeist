@@ -12,6 +12,8 @@ public class LEDBlinking : MonoBehaviour
     [SerializeField] private float timePassed = 0;
     private Controller controller;
 
+    bool ledOn = false;
+
     void Start()
     {
         if (currentSpeed < minTimePassed) { currentSpeed = minTimePassed; }
@@ -25,12 +27,19 @@ public class LEDBlinking : MonoBehaviour
 
         if (timePassed >= currentSpeed) 
         {
-            if(controller != null) { controller.SwitchLEDState(); }
+            ledOn = !ledOn;
+            if(controller != null) { controller.SwitchLEDState(ledOn); }
             timePassed = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow)) { ChangeLEDSpeed(false); }
         else if (Input.GetKeyDown(KeyCode.UpArrow)) { ChangeLEDSpeed(true); }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ledOn = !ledOn;
+            controller.SwitchLEDState(ledOn);
+        }
     }
 
     public void ChangeLEDSpeed(bool faster = true)

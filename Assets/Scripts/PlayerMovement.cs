@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        lastRotation = PlayerPrefs.GetInt("lastRotation", lastRotation);
     }
 
     void Update()
@@ -37,5 +38,6 @@ public class PlayerMovement : MonoBehaviour
 
         // save value for next time
         lastRotation = value;
+        PlayerPrefs.SetInt("lastRotation", lastRotation);
     }
 }
