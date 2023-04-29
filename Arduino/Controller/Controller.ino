@@ -12,6 +12,11 @@ int pin_clk = 3;
 int pin_dt = 4;
 int button_pin = 5;
 
+// light barrier stuff
+int lightSensor = 9;
+int lightvalue;
+int lastlightvalue;
+
 void setup() {
   // led test
   pinMode(ledPin, OUTPUT);
@@ -26,6 +31,10 @@ void setup() {
   digitalWrite(button_pin,true);
   pin_clk_last = digitalRead(pin_clk);
   counter = 0;
+
+  // light barrier test
+  pinMode (lightSensor, INPUT);
+  digitalWrite(lightSensor, HIGH);
 
   Serial.begin(9600);
 }
@@ -64,6 +73,24 @@ void loop() {
     counter = 0;
     Serial.println("reset position");
   }
+
+  // light barrier test:
+  lightvalue = digitalRead(lightSensor);
+  if (lightvalue == HIGH)
+  {
+    if (lastlightvalue != lightvalue)
+    {
+      Serial.println("Light Barrier Closed");
+    }
+  }
+  else
+  {
+    if (lastlightvalue != lightvalue)
+    {
+      Serial.println("Light Barrier Open");
+    }
+  }
+  lastlightvalue = lightvalue;
 }
 
 void ledCheck()
