@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float rotationSpeed;
 
     private int lastRotation;
+    private bool visible;
 
     void Start()
     {
@@ -23,8 +24,11 @@ public class PlayerMovement : MonoBehaviour
         // remove once arduino is set up
         if (Input.GetKeyDown(KeyCode.W)) buttonPressed = true;
         if (Input.GetKeyUp(KeyCode.W)) buttonPressed = false;
+        if (Input.GetKeyDown(KeyCode.I)) Invisibility(visible);
+        if (Input.GetKey(KeyCode.A)) Rotate(lastRotation - 1);
+        if (Input.GetKey(KeyCode.D)) Rotate(lastRotation + 1);
 
-        if (controller != null && buttonPressed) 
+        if (controller != null && buttonPressed && visible) 
         {
             controller.Move(transform.forward * Time.deltaTime * movementSpeed);
         }
@@ -41,5 +45,15 @@ public class PlayerMovement : MonoBehaviour
         // save value for next time
         lastRotation = value;
         PlayerPrefs.SetInt("lastRotation", lastRotation);
+    }
+
+    public void Invisibility(bool invisible)
+    {
+        visible = !invisible;
+    }
+
+    public void Movement(bool shouldMove)
+    {
+        buttonPressed = shouldMove;
     }
 }

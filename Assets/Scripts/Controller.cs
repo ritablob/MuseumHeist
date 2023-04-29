@@ -63,15 +63,17 @@ public class Controller : MonoBehaviour
                 {
                     case "Light Barrier Open":
                         Debug.Log("no longer invisible");
+                        player.Invisibility(false);
                         break;
                     case "Light Barrier Closed":
                         Debug.Log("invisible wuaaaah");
+                        player.Invisibility(true);
                         break;
                     case "Button Move Pressed":
-                        // button pressed, move forward
+                        player.Movement(true);
                         break;
                     case "Button Move Released":
-                        // button released, stop moving
+                        player.Movement(false);
                         break;
                     default: // default is the rotatry encoder from which we get the actual value of rotation
                         player.Rotate(int.Parse(value));
