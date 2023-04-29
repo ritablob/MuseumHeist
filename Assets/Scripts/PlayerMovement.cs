@@ -33,7 +33,9 @@ public class PlayerMovement : MonoBehaviour
     public void Rotate(int value)
     {
         // rotate based on difference between value and last value
+        float difference = value - lastRotation;
         float rotationAmount = (value - lastRotation) * rotationSpeed;
+        if (difference > 150) rotationAmount = 0;
         transform.Rotate(Vector3.up, rotationAmount);
 
         // save value for next time
