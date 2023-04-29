@@ -12,10 +12,20 @@ int pin_clk = 3;
 int pin_dt = 4;
 int button_pin = 5;
 
+// button stuff
+int button = 6;
+int buttonValue;
+int lastButtonValue;
+
 // light barrier stuff
 int lightSensor = 9;
 int lightvalue;
 int lastlightvalue;
+
+// buzzer stuff
+#include "pitches.h"
+int buzzerPin = 8;
+bool playSound = false;
 
 void setup() {
   // led test
@@ -36,6 +46,14 @@ void setup() {
   pinMode (lightSensor, INPUT);
   digitalWrite(lightSensor, HIGH);
 
+  // buzzer stuff
+  pinMode(buzzerPin, OUTPUT);
+  noTone(buzzerPin);
+
+  // button stuff
+  pinMode(button, INPUT);
+  digitalWrite(button, HIGH);
+
   Serial.begin(9600);
 }
 
@@ -52,6 +70,25 @@ void loop() {
     }
   }
   ledCheck();
+
+  // button stuff
+  buttonValue = digitalRead(button);
+  if (buttonValue == HIGH)
+  {
+    if (buttonValue != lastButtonValue)
+    {
+      lastButtonValue = buttonValue;
+      Serial.println("Button Move Released");
+    }
+  }
+  else
+  {
+    if (buttonValue != lastButtonValue)
+    {
+      lastButtonValue = buttonValue;
+      Serial.println("Button Move Pressed");
+    }
+  }
 
   // rotary encoder check
   pin_clk_current = digitalRead(pin_clk);

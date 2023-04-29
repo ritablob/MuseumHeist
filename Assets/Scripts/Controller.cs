@@ -56,7 +56,7 @@ public class Controller : MonoBehaviour
             string value = ReadSerialPort();
             if (value != null) 
             {
-                //Debug.Log(value);
+                Debug.Log(value);
                 //player.Rotate(int.Parse(value));
                 
                 switch (value)
