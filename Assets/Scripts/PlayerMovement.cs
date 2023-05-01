@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         lastRotation = PlayerPrefs.GetInt("lastRotation", lastRotation);
+        visible = true;
     }
 
     void Update()
