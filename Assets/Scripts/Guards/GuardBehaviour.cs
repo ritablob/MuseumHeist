@@ -65,7 +65,6 @@ public class GuardBehaviour : MonoBehaviour
         ray = new Ray(rayStartPosition, player.position - rayStartPosition);
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            Debug.Log("hit with collider " + hit.collider.name + ", tag - "+ hit.collider.tag);
             if (hit.collider.CompareTag("Player"))
             {
                 playerVisible = true;
