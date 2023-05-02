@@ -5,9 +5,11 @@ using System.IO.Ports;
 using System.Threading;
 using System;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class Controller : MonoBehaviour
 {
+    public Button menuButton;
     [SerializeField] private PlayerMovement player;
     GameManager gameManager;
 
@@ -72,13 +74,35 @@ public class Controller : MonoBehaviour
                         player.Invisibility(true);
                         break;
                     case "Button Move Pressed":
-                        player.Movement(true);
+                        if (gameManager.UIMode)
+                        {
+                            gameManager.MenuButtonClick();
+                            // ui input
+                        }
+                        else
+                        {
+                            player.Movement(true);
+                        }
                         break;
                     case "Button Move Released":
-                        player.Movement(false);
+                        if (gameManager.UIMode)
+                        {
+                            // ui input
+                        }
+                        else
+                        {
+                            player.Movement(false);
+                        }
                         break;
                     default: // default is the rotatry encoder from which we get the actual value of rotation
-                        player.Rotate(int.Parse(value));
+                        if (gameManager.UIMode)
+                        {
+                            // ui input
+                        }
+                        else
+                        {
+                            player.Rotate(int.Parse(value));
+                        }
                         break;
                 }
             }

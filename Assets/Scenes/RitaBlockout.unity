@@ -647,6 +647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3f17ae23c848c428638ebfdd537696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuButton: {fileID: 0}
   player: {fileID: 1896983687}
 --- !u!4 &101255774
 Transform:
@@ -5828,6 +5829,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winCanvas: {fileID: 1445335662}
   hasArtefact: 0
+  UIMode: 0
 --- !u!65 &1078104715
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7361,7 +7363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1445335663
 MonoBehaviour:
   m_ObjectHideFlags: 0

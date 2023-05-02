@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 426cc7ba7279b4d21a177331a4acbbde
+  - enabled: 1
+    path: Assets/Scenes/RitaBlockout.unity
+    guid: 410da1333970e6c41a366331c4b77994
   m_configObjects: {}
