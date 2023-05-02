@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ArtefactBehaviour : MonoBehaviour
 {
-    bool isPickedUp;
+    public GameManager gameManager;
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             gameObject.SetActive(false);
-            isPickedUp = true;
-            Debug.Log("Inventory status = " + isPickedUp);
+            gameManager.hasArtefact = true;
+            Debug.Log("Inventory status = " + gameManager.hasArtefact);
         }
     }
 }

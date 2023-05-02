@@ -4,14 +4,15 @@ using UnityEngine;
 using System.IO.Ports;
 using System.Threading;
 using System;
+using Unity.VisualScripting;
 
 public class Controller : MonoBehaviour
 {
     [SerializeField] private PlayerMovement player;
+    GameManager gameManager;
 
-    SerialPort sp = new SerialPort("COM3", 9600);
+    SerialPort sp = new SerialPort("COM4", 9600);
     bool isStreaming = false;
-
     void OpenConnection()
     {
         isStreaming = true;
@@ -41,6 +42,7 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         OpenConnection();
     }
 
