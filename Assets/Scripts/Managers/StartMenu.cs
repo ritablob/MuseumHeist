@@ -34,7 +34,8 @@ public class StartMenu : MonoBehaviour
         if (portName != "" && portName.Contains("COM"))
         {
             EventManager.Instance.EventGo("CONTROLLER", "OpenConnection", portName);
-            GameManagement.LoadGameScene();
+            titleScreen.SetActive(false);
+            chooseScreen.SetActive(true);
         }
     }
 
@@ -42,5 +43,10 @@ public class StartMenu : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("application quit");
+    }
+
+    public void PlayButton()
+    {
+        GameManagement.LoadGameScene();
     }
 }
