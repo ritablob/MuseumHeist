@@ -22,11 +22,6 @@ public class Controller : MonoBehaviour
         Menu
     }
     public GameMode currentMode = GameMode.Gameplay;
-    private GameplayController gameplayController;
-    private MenuController menuController;
-    private UIController uiController;
-    private PuzzleController puzzleController;
-
     private static string port = "COM3";
 
     SerialPort sp;
@@ -63,11 +58,14 @@ public class Controller : MonoBehaviour
     void Start()
     {
         //OpenConnection();
+
+        EventManager.Instance.AddEventListener("CONTROLLER", ControllerListener);
     }
 
     private void OnDestroy()
     {
         if (isStreaming) CloseConnection();
+        EventManager.Instance.RemoveEventListener("CONTROLLER", ControllerListener);
     }
 
     void Update()
@@ -80,28 +78,7 @@ public class Controller : MonoBehaviour
             if (value != null) 
             {
                 //Debug.Log(value);
-                
-                switch (currentMode)
-                {
-                    case GameMode.Gameplay:
-                        if (gameplayController != null)
-                            gameplayController.DataFromArduino(value);
-                        break;
-                    case GameMode.Menu:
-                        if (menuController != null)
-                            menuController.DataFromArduino(value);
-                        break;
-                    case GameMode.UI:
-                        if (uiController != null)
-                            uiController.DataFromArduino(value);
-                        break;
-                    case GameMode.Puzzle:
-                        if (puzzleController != null)
-                            puzzleController.DataFromArduino(value);
-                        break;
-                    default:
-                        break;
-                }
+                EventManager.Instance.EventGo("CONTROLLER", "IncomingDataArduino", value);
             }
         }
     }
@@ -109,5 +86,22 @@ public class Controller : MonoBehaviour
     public void SendToArduino(string message)
     {
         sp.WriteLine(message);
+    }
+
+    void ControllerListener(string eventName, object param)
+    {
+        if (eventName == "OutgoingDataArduino")
+        {
+            SendToArduino((string)param);
+        }
+        else if (eventName == "OpenConnection")
+        {
+            port = (string)param;
+            OpenConnection();
+        }
+        else if (eventName == "CloseConnection")
+        {
+            if (isStreaming) CloseConnection();
+        }
     }
 }

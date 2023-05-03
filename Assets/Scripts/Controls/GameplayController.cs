@@ -12,8 +12,24 @@ public interface IArduinoInput
 public class GameplayController : MonoBehaviour, IArduinoInput
 {
     [SerializeField] private PlayerMovement player;
-    Controller controller;
-    
+
+    private void Start()
+    {
+        EventManager.Instance.AddEventListener("CONTROLLER", ControllerListener);
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Instance.RemoveEventListener("CONTROLLER", ControllerListener);
+    }
+
+    void ControllerListener(string eventName, object param)
+    {
+        if (eventName == "IncomingDataArduino")
+        {
+            DataFromArduino((string)param);
+        }
+    }
 
     public void DataFromArduino(string message)
     {
@@ -41,7 +57,7 @@ public class GameplayController : MonoBehaviour, IArduinoInput
 
     public void SendDataToArduino(string message)
     {
-        if (controller != null) { controller.SendToArduino(message); }
+        EventManager.Instance.EventGo("CONTROLLER", "OutgoingDataArduino", message);
     }
 
     public void SwitchLEDState(bool ledOn)

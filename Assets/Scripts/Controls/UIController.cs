@@ -4,7 +4,23 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour, IArduinoInput
 {
-    Controller controller;
+    private void Start()
+    {
+        EventManager.Instance.AddEventListener("CONTROLLER", ControllerListener);
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Instance.RemoveEventListener("CONTROLLER", ControllerListener);
+    }
+
+    void ControllerListener(string eventName, object param)
+    {
+        if (eventName == "IncomingDataArduino")
+        {
+            DataFromArduino((string)param);
+        }
+    }
 
     public void DataFromArduino(string message)
     {
@@ -13,18 +29,6 @@ public class UIController : MonoBehaviour, IArduinoInput
 
     public void SendDataToArduino(string message)
     {
-        if (controller != null) { controller.SendToArduino(message); }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        EventManager.Instance.EventGo("CONTROLLER", "OutgoingDataArduino", message);
     }
 }
