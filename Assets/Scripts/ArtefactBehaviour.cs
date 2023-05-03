@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArtefactBehaviour : MonoBehaviour
 {
-    public GameManager gameManager;
+    public WinManager gameManager;
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {

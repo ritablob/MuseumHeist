@@ -4,22 +4,17 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class WinManager : MonoBehaviour
 {
     public GameObject winCanvas;
     [HideInInspector] public bool hasArtefact;
     public bool UIMode;
-    // Start is called before the first frame update
+
     void Start()
     {
         UIMode = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter(Collider other)
     {
         CheckWin();
