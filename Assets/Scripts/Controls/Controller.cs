@@ -22,7 +22,10 @@ public class Controller : MonoBehaviour
         Menu
     }
     public GameMode currentMode = GameMode.Gameplay;
-    [SerializeField] private GameplayController gameplayController;
+    private GameplayController gameplayController;
+    private MenuController menuController;
+    private UIController uiController;
+    private PuzzleController puzzleController;
 
     private static string port = "COM3";
 
@@ -59,26 +62,24 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
-        //gameManager = FindObjectOfType<GameManager>();
         //OpenConnection();
     }
 
     private void OnDestroy()
     {
-        CloseConnection();
+        if (isStreaming) CloseConnection();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O) && !isStreaming) OpenConnection();
+        //if (Input.GetKeyDown(KeyCode.O) && !isStreaming) OpenConnection();
 
         if (isStreaming)
         {
             string value = ReadSerialPort();
             if (value != null) 
             {
-                Debug.Log(value);
-                //player.Rotate(int.Parse(value));
+                //Debug.Log(value);
                 
                 switch (currentMode)
                 {
@@ -87,65 +88,26 @@ public class Controller : MonoBehaviour
                             gameplayController.DataFromArduino(value);
                         break;
                     case GameMode.Menu:
+                        if (menuController != null)
+                            menuController.DataFromArduino(value);
                         break;
                     case GameMode.UI:
+                        if (uiController != null)
+                            uiController.DataFromArduino(value);
                         break;
                     case GameMode.Puzzle:
+                        if (puzzleController != null)
+                            puzzleController.DataFromArduino(value);
                         break;
                     default:
                         break;
                 }
-
-                /*
-                switch (value)
-                {
-                    case "Light Barrier Open":
-                        Debug.Log("no longer invisible");
-                        player.Invisibility(false);
-                        break;
-                    case "Light Barrier Closed":
-                        Debug.Log("invisible wuaaaah");
-                        player.Invisibility(true);
-                        break;
-                    case "Button Move Pressed":
-                        if (gameManager.UIMode)
-                        {
-                            gameManager.MenuButtonClick();
-                            // ui input
-                        }
-                        else
-                        {
-                            player.Movement(true);
-                        }
-                        break;
-                    case "Button Move Released":
-                        if (gameManager.UIMode)
-                        {
-                            // ui input
-                        }
-                        else
-                        {
-                            player.Movement(false);
-                        }
-                        break;
-                    default: // default is the rotatry encoder from which we get the actual value of rotation
-                        if (gameManager.UIMode)
-                        {
-                            // ui input
-                        }
-                        else
-                        {
-                            player.Rotate(int.Parse(value));
-                        }
-                        break;
-                }
-                */
             }
         }
     }
 
-    public void SwitchLEDState(bool ledOn)
+    public void SendToArduino(string message)
     {
-        sp.WriteLine("L" + (ledOn ? "1" : "0"));
+        sp.WriteLine(message);
     }
 }

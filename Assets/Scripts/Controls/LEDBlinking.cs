@@ -10,7 +10,7 @@ public class LEDBlinking : MonoBehaviour
     [SerializeField] private float incrementSteps = 100f;
     [SerializeField] private float currentSpeed = 800f;
     [SerializeField] private float timePassed = 0;
-    private Controller controller;
+    private GameplayController controller;
 
     bool ledOn = false;
 
@@ -18,7 +18,7 @@ public class LEDBlinking : MonoBehaviour
     {
         if (currentSpeed < minTimePassed) { currentSpeed = minTimePassed; }
         else if (currentSpeed > maxTimePassed) { currentSpeed = maxTimePassed; }
-        controller = GetComponent<Controller>();
+        controller = GetComponent<GameplayController>();
     }
 
     void Update()

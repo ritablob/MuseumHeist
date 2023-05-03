@@ -6,12 +6,13 @@ using UnityEngine;
 public interface IArduinoInput
 {
     void DataFromArduino(string message);
-    void SendDataToArduino();
+    void SendDataToArduino(string message);
 }
 
 public class GameplayController : MonoBehaviour, IArduinoInput
 {
     [SerializeField] private PlayerMovement player;
+    Controller controller;
     
 
     public void DataFromArduino(string message)
@@ -38,8 +39,13 @@ public class GameplayController : MonoBehaviour, IArduinoInput
         }
     }
 
-    public void SendDataToArduino()
+    public void SendDataToArduino(string message)
     {
-        throw new System.NotImplementedException();
+        if (controller != null) { controller.SendToArduino(message); }
+    }
+
+    public void SwitchLEDState(bool ledOn)
+    {
+        SendDataToArduino("L" + (ledOn ? "1" : "0"));
     }
 }
