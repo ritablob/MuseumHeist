@@ -13,15 +13,6 @@ public class Controller : MonoBehaviour
     //GameManager gameManager;
     //public Button menuButton;
 
-
-    public enum GameMode
-    {
-        Gameplay,
-        Puzzle,
-        UI,
-        Menu
-    }
-    public GameMode currentMode = GameMode.Gameplay;
     private static string port = "COM3";
 
     SerialPort sp;
@@ -77,7 +68,7 @@ public class Controller : MonoBehaviour
             string value = ReadSerialPort();
             if (value != null) 
             {
-                //Debug.Log(value);
+                Debug.Log(value);
                 EventManager.Instance.EventGo("CONTROLLER", "IncomingDataArduino", value);
             }
         }
@@ -98,6 +89,7 @@ public class Controller : MonoBehaviour
         {
             port = (string)param;
             OpenConnection();
+            GameManagement.portOpen = true;
         }
         else if (eventName == "CloseConnection")
         {
