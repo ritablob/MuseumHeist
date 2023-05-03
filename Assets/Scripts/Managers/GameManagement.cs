@@ -36,11 +36,13 @@ public class GameManagement : MonoBehaviour
     {
         Debug.Log("Load Game Scene");
         SceneManager.LoadScene(1);
+        currentMode = GameMode.Gameplay;
     }
 
     public static void LoadStartMenu()
     {
         Debug.Log("Load start menu");
         SceneManager.LoadScene(0);
+        currentMode = GameMode.Menu;
     }
 }
