@@ -61,8 +61,6 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.O) && !isStreaming) OpenConnection();
-
         if (isStreaming)
         {
             string value = ReadSerialPort();

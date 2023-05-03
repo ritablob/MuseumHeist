@@ -23,6 +23,8 @@ public class LEDBlinking : MonoBehaviour
 
     void Update()
     {
+        if (!GameManagement.portOpen) return;
+
         timePassed += (Time.deltaTime*1000f);
 
         if (timePassed >= currentSpeed) 

@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManagement : MonoBehaviour
 {
+    [SerializeField] string defaultPortName = "COM3";
+
     public enum GameMode
     {
         Gameplay,
@@ -44,5 +46,13 @@ public class GameManagement : MonoBehaviour
         Debug.Log("Load start menu");
         SceneManager.LoadScene(0);
         currentMode = GameMode.Menu;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.O) && !portOpen && SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            EventManager.Instance.EventGo("CONTROLLER", "OpenConnection", defaultPortName);
+        }
     }
 }
