@@ -25,7 +25,7 @@ public class GameplayController : MonoBehaviour, IArduinoInput
 
     void ControllerListener(string eventName, object param)
     {
-        if (eventName == "IncomingDataArduino")
+        if (eventName == "IncomingDataArduino" && GameManagement.currentMode == GameMode.Gameplay)
         {
             DataFromArduino((string)param);
         }

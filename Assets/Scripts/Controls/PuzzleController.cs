@@ -16,7 +16,7 @@ public class PuzzleController : MonoBehaviour, IArduinoInput
 
     void ControllerListener(string eventName, object param)
     {
-        if (eventName == "IncomingDataArduino")
+        if (eventName == "IncomingDataArduino" && GameManagement.currentMode == GameMode.Puzzle)
         {
             DataFromArduino((string)param);
         }
