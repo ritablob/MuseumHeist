@@ -24,7 +24,19 @@ public class MenuController : MonoBehaviour, IArduinoInput
 
     public void DataFromArduino(string message)
     {
-        throw new System.NotImplementedException();
+        switch (message)
+        {
+            case "Light Barrier Open":
+                break;
+            case "Light Barrier Closed":
+                break;
+            case "Button Move Pressed":
+                break;
+            case "Button Move Released":
+                break;
+            default: // default is the rotatry encoder from which we get the actual value of rotation
+                break;
+        }
     }
 
     public void SendDataToArduino(string message)
