@@ -9,14 +9,29 @@ using UnityEngine.UI;
 
 public class Controller : MonoBehaviour
 {
-    public Button menuButton;
-    [SerializeField] private PlayerMovement player;
-    GameManager gameManager;
+    //[SerializeField] private PlayerMovement player;
+    //GameManager gameManager;
+    //public Button menuButton;
 
-    SerialPort sp = new SerialPort("COM4", 9600);
+
+    public enum GameMode
+    {
+        Gameplay,
+        Puzzle,
+        UI,
+        Menu
+    }
+    public GameMode currentMode = GameMode.Gameplay;
+    [SerializeField] private GameplayController gameplayController;
+
+    private static string port = "COM3";
+
+    SerialPort sp;
     bool isStreaming = false;
+
     void OpenConnection()
     {
+        sp = new SerialPort(port, 9600);
         isStreaming = true;
         sp.ReadTimeout = 100;
         sp.Open();
@@ -44,8 +59,8 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        OpenConnection();
+        //gameManager = FindObjectOfType<GameManager>();
+        //OpenConnection();
     }
 
     private void OnDestroy()
@@ -55,6 +70,8 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.O) && !isStreaming) OpenConnection();
+
         if (isStreaming)
         {
             string value = ReadSerialPort();
@@ -63,6 +80,23 @@ public class Controller : MonoBehaviour
                 Debug.Log(value);
                 //player.Rotate(int.Parse(value));
                 
+                switch (currentMode)
+                {
+                    case GameMode.Gameplay:
+                        if (gameplayController != null)
+                            gameplayController.DataFromArduino(value);
+                        break;
+                    case GameMode.Menu:
+                        break;
+                    case GameMode.UI:
+                        break;
+                    case GameMode.Puzzle:
+                        break;
+                    default:
+                        break;
+                }
+
+                /*
                 switch (value)
                 {
                     case "Light Barrier Open":
@@ -105,6 +139,7 @@ public class Controller : MonoBehaviour
                         }
                         break;
                 }
+                */
             }
         }
     }
