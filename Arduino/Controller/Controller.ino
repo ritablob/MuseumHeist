@@ -25,7 +25,16 @@ int lastlightvalue;
 // buzzer stuff
 #include "pitches.h"
 int buzzerPin = 8;
-bool playSound = false;
+bool playSound;
+int melody[] = {
+  NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4
+};
+
+// note durations: 4 = quarter note, 8 = eighth note, etc.:
+int noteDurations[] = {
+
+  4, 8, 8, 4, 4, 4, 4, 4
+};
 
 void setup() {
   // led test
@@ -48,22 +57,28 @@ void setup() {
 
   // buzzer stuff
   pinMode(buzzerPin, OUTPUT);
-  noTone(buzzerPin);
 
   // button stuff
   pinMode(button, INPUT);
   digitalWrite(button, HIGH);
+  playSound = false;
 
   Serial.begin(9600);
 }
 
 void loop() {
-  // led test stuff
+  // read data
   if (Serial.available() > 0){
     while (Serial.peek() == 'L'){
       Serial.read();
       incomingByte[0] = Serial.parseInt();
-      if (incomingByte[0] == 1) {LED = true;} else {LED = false;}
+      //led related data
+      if (incomingByte[0] == 1) {LED = true;} else if (incomingByte[0] == 0) {LED = false;}
+      // buzzer related data
+      else if (incomingByte[0] == 3) { if (playSound) {playSound = false; } else {playSound = true;}}
+      else if (incomingByte[0] == 4) {playSound = false; digitalWrite (buzzerPin, LOW);}
+      // turn everything off at the end of unity
+      else if (incomingByte[0] == 5) { TurnEverythingOff();}
     }
     while (Serial.available() > 0){
       Serial.read();
@@ -128,6 +143,16 @@ void loop() {
     }
   }
   lastlightvalue = lightvalue;
+
+  // buzzer alarm
+  if (playSound)
+  {
+    digitalWrite (buzzerPin, HIGH);
+  }
+  else
+  {
+    digitalWrite (buzzerPin, LOW);
+  }
 }
 
 void ledCheck()
@@ -138,4 +163,12 @@ void ledCheck()
     digitalWrite(ledPin, LOW);
   }
   return;
+}
+
+void TurnEverythingOff()
+{
+  LED = false;
+  ledCheck();
+  playSound = false;
+  digitalWrite (buzzerPin, LOW);
 }

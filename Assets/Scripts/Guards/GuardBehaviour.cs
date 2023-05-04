@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class GuardBehaviour : MonoBehaviour
 {
     [SerializeField] private LEDBlinking led;
+    private Buzzer buzzer;
 
     RaycastHit hit;
     Ray ray;
@@ -26,11 +27,22 @@ public class GuardBehaviour : MonoBehaviour
     void Start()
     {
         navMeshAgent = transform.GetComponent<NavMeshAgent>();
+        buzzer = GetComponent<Buzzer>();
     }
 
     void Update()
     {
-        if (!GameManagement.guardsActive) return;
+        if (!GameManagement.guardsActive)
+        {
+            navMeshAgent.isStopped = true;
+            led.GuardSeesPlayer(false);
+            buzzer.ActivateBuzzer(false);
+        }
+        else
+        {
+            navMeshAgent.isStopped = false;
+        }
+
         /* To-do:
          * - check if player visible (+ margin of delay time) with raycasting
          * - - if not, proceed to go towards one of the points (with navmesh)
@@ -67,14 +79,22 @@ public class GuardBehaviour : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                if (!playerVisible) led.GuardSeesPlayer(true);
+                if (!playerVisible)
+                {
+                    led.GuardSeesPlayer(true);
+                    buzzer.ActivateBuzzer(true);
+                }
                 playerVisible = true;
                 rayColour = Color.green;
                 lastKnownPlayerPosition = player.position;
             }
             else
             {
-                if (playerVisible) led.GuardSeesPlayer(false);
+                if (playerVisible)
+                {
+                    led.GuardSeesPlayer(false);
+                    buzzer.ActivateBuzzer(false);
+                }
                 playerVisible = false;
                 rayColour = Color.red;
             }

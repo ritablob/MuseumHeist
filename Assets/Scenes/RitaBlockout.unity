@@ -11136,6 +11136,7 @@ GameObject:
   - component: {fileID: 3963264402869739047}
   - component: {fileID: 2627857748649690015}
   - component: {fileID: 9182814606254914495}
+  - component: {fileID: 9182814606254914496}
   m_Layer: 0
   m_Name: Guard
   m_TagString: Untagged
@@ -11463,3 +11464,18 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &9182814606254914496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055149939880864674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb4fbac0d561a43439920af315200bc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shouldBuzz: 0
+  buzzerDuration: 200
+  pauseDuration: 500

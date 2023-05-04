@@ -28,6 +28,7 @@ public class Controller : MonoBehaviour
 
     void CloseConnection()
     {
+        SendToArduino("L5");
         sp.Close();
     }
 
