@@ -14,6 +14,18 @@ public class LEDBlinking : MonoBehaviour
 
     bool ledOn = false;
 
+    [Space]
+    [SerializeField] private Transform guard;
+    [SerializeField] private Transform player;
+    bool guardSeesPlayer;
+
+    [Space]
+    [SerializeField] private float calm = 1500f;
+    [SerializeField] private float calmNearRobot = 700f;
+    [SerializeField] private float seen10 = 400f;
+    [SerializeField] private float seen5 = 200f;
+    [SerializeField] private float seen0 = 100f;
+
     void Start()
     {
         if (currentSpeed < minTimePassed) { currentSpeed = minTimePassed; }
@@ -24,6 +36,7 @@ public class LEDBlinking : MonoBehaviour
     void Update()
     {
         if (!GameManagement.portOpen) return;
+        if (!GameManagement.guardsActive) return;
 
         timePassed += (Time.deltaTime*1000f);
 
@@ -34,6 +47,22 @@ public class LEDBlinking : MonoBehaviour
             timePassed = 0;
         }
 
+        if (guardSeesPlayer)
+        {
+            currentSpeed = seen0;
+            if (Vector3.Distance(guard.position, player.position) > 5)
+                currentSpeed = seen5;
+            else if (Vector3.Distance(guard.position, player.position) > 5)
+                currentSpeed = seen10;
+        }
+        else
+        {
+            currentSpeed = calm;
+            if (Vector3.Distance(guard.position, player.position) < 5)
+                currentSpeed = calmNearRobot;
+        }
+
+        /*
         if (Input.GetKeyDown(KeyCode.DownArrow)) { ChangeLEDSpeed(false); }
         else if (Input.GetKeyDown(KeyCode.UpArrow)) { ChangeLEDSpeed(true); }
 
@@ -42,6 +71,7 @@ public class LEDBlinking : MonoBehaviour
             ledOn = !ledOn;
             controller.SwitchLEDState(ledOn);
         }
+        */
     }
 
     public void ChangeLEDSpeed(bool faster = true)
@@ -51,5 +81,24 @@ public class LEDBlinking : MonoBehaviour
 
         if (currentSpeed < minTimePassed) { currentSpeed = minTimePassed; }
         else if (currentSpeed > maxTimePassed) { currentSpeed = maxTimePassed; }
+    }
+
+    public void GuardSeesPlayer(bool seesPlayer)
+    {
+        guardSeesPlayer = seesPlayer;
+        if (guardSeesPlayer)
+        {
+            currentSpeed = seen0;
+            if (Vector3.Distance(guard.position, player.position) > 4)
+                currentSpeed = seen5;
+            else if (Vector3.Distance(guard.position, player.position) > 7)
+                currentSpeed = seen10;
+        }
+        else
+        {
+            currentSpeed = calm;
+            if (Vector3.Distance(guard.position, player.position) < 5)
+                currentSpeed = calmNearRobot;
+        }
     }
 }

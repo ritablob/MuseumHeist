@@ -5161,6 +5161,13 @@ MonoBehaviour:
   incrementSteps: 50
   currentSpeed: 800
   timePassed: 0
+  guard: {fileID: 3963264402869739047}
+  player: {fileID: 1896983688}
+  calm: 1500
+  calmNearRobot: 700
+  seen10: 400
+  seen5: 200
+  seen0: 100
 --- !u!4 &829821941
 Transform:
   m_ObjectHideFlags: 0
@@ -11245,6 +11252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61b680fbf88a2924f84632c2a0046779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  led: {fileID: 829821939}
   coordinateList:
   - {fileID: 1151732344}
   - {fileID: 1707911228}

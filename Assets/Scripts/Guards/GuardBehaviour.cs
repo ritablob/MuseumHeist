@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class GuardBehaviour : MonoBehaviour
 {
+    [SerializeField] private LEDBlinking led;
 
     RaycastHit hit;
     Ray ray;
@@ -22,13 +23,11 @@ public class GuardBehaviour : MonoBehaviour
     public Transform player;
     Vector3 lastKnownPlayerPosition;
 
-    // Start is called before the first frame update
     void Start()
     {
         navMeshAgent = transform.GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!GameManagement.guardsActive) return;
@@ -68,12 +67,14 @@ public class GuardBehaviour : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
+                if (!playerVisible) led.GuardSeesPlayer(true);
                 playerVisible = true;
                 rayColour = Color.green;
                 lastKnownPlayerPosition = player.position;
             }
             else
             {
+                if (playerVisible) led.GuardSeesPlayer(false);
                 playerVisible = false;
                 rayColour = Color.red;
             }
