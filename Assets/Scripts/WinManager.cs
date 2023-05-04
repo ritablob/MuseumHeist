@@ -8,13 +8,11 @@ public class WinManager : MonoBehaviour
 {
     public GameObject winCanvas;
     [HideInInspector] public bool hasArtefact;
-    public bool UIMode;
 
-    void Start()
+    private void Start()
     {
-        UIMode = false;
+        winCanvas.SetActive(false);
     }
-
     private void OnTriggerEnter(Collider other)
     {
         CheckWin();
@@ -28,13 +26,13 @@ public class WinManager : MonoBehaviour
             // game input disabled 
             // game time to zero
             // display gameplay time 
-            UIMode = true;
+            GameManagement.currentMode = GameManagement.GameMode.UIWin;
             winCanvas.SetActive(true);
             Time.timeScale = 0;
         }
     }
     public void MenuButtonClick()
     {
-        SceneManager.LoadScene(0);
+        GameManagement.LoadStartMenu();
     }
 }

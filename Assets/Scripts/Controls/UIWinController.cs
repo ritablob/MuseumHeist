@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIController : MonoBehaviour, IArduinoInput
+public class UIWinController : MonoBehaviour, IArduinoInput
 {
     private void Start()
     {
@@ -16,7 +16,7 @@ public class UIController : MonoBehaviour, IArduinoInput
 
     void ControllerListener(string eventName, object param)
     {
-        if (eventName == "IncomingDataArduino" && GameManagement.currentMode == GameMode.UIWin)
+        if (eventName == "IncomingDataArduino" && GameManagement.currentMode == GameManagement.GameMode.UIWin)
         {
             DataFromArduino((string)param);
         }
@@ -31,6 +31,7 @@ public class UIController : MonoBehaviour, IArduinoInput
             case "Light Barrier Closed":
                 break;
             case "Button Move Pressed":
+                GetComponent<WinManager>().MenuButtonClick();
                 break;
             case "Button Move Released":
                 break;

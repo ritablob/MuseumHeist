@@ -10,14 +10,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private float rotationSpeed;
 
-    private int lastRotation;
+    public int lastRotation;
+    public int lastKnobRotation;
     private bool visible;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        lastRotation = PlayerPrefs.GetInt("lastRotation", lastRotation);
+        lastKnobRotation = PlayerPrefs.GetInt("LastRotation");
         visible = true;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerPrefs.SetInt("LastRotation", lastKnobRotation);
     }
 
     void Update()
@@ -38,14 +44,13 @@ public class PlayerMovement : MonoBehaviour
     public void Rotate(int value)
     {
         // rotate based on difference between value and last value
-        float difference = value - lastRotation;
+        float difference = value - lastRotation + lastKnobRotation;
         float rotationAmount = (value - lastRotation) * rotationSpeed;
         if (difference > 150) rotationAmount = 0;
         transform.Rotate(Vector3.up, rotationAmount);
 
         // save value for next time
         lastRotation = value;
-        PlayerPrefs.SetInt("lastRotation", lastRotation);
     }
 
     public void Invisibility(bool invisible)
