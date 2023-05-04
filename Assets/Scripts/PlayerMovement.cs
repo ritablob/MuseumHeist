@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         lastKnobRotation = PlayerPrefs.GetInt("LastRotation");
         visible = true;
+        lastRotation = 90;
     }
 
     private void OnDestroy()
@@ -28,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (!GameManagement.guardsActive) return;
+
         // remove once arduino is set up
         if (Input.GetKeyDown(KeyCode.W)) buttonPressed = true;
         if (Input.GetKeyUp(KeyCode.W)) buttonPressed = false;

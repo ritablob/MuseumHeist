@@ -8,15 +8,19 @@ public class WinManager : MonoBehaviour
 {
     public GameObject winCanvas;
     [HideInInspector] public bool hasArtefact;
+    public bool canClickButton;
+    float cooldown = 2f;
 
     private void Start()
     {
         winCanvas.SetActive(false);
+        canClickButton = false;
     }
     private void OnTriggerEnter(Collider other)
     {
         CheckWin();
     }
+
     public void CheckWin()
     {
         if (hasArtefact)
@@ -28,11 +32,22 @@ public class WinManager : MonoBehaviour
             // display gameplay time 
             GameManagement.currentMode = GameManagement.GameMode.UIWin;
             winCanvas.SetActive(true);
-            Time.timeScale = 0;
+            GameManagement.guardsActive = false;
+            StartCoroutine(CanClick());
         }
     }
     public void MenuButtonClick()
     {
-        GameManagement.LoadStartMenu();
+        if (canClickButton)
+        {
+            GameManagement.LoadStartMenu();
+        }
+    }
+
+    IEnumerator CanClick()
+    {
+        canClickButton = false;
+        yield return new WaitForSeconds(cooldown);
+        canClickButton = true;
     }
 }

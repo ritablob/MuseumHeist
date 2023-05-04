@@ -9,6 +9,8 @@ public class StartMenu : MonoBehaviour
 
     [SerializeField] private TMPro.TMP_InputField portNameField;
 
+    bool canClick = false;
+
     void Start()
     {
         if (!GameManagement.portOpen)
@@ -21,11 +23,8 @@ public class StartMenu : MonoBehaviour
             titleScreen.SetActive(false); 
             chooseScreen.SetActive(true);
         }
-    }
 
-    void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.M)) GameManagement.LoadStartMenu();
+        StartCoroutine(StartClick());
     }
 
     public void InputPortName()
@@ -41,12 +40,22 @@ public class StartMenu : MonoBehaviour
 
     public void QuitButton()
     {
+        if (!canClick) return;
+
         Application.Quit();
         Debug.Log("application quit");
     }
 
     public void PlayButton()
     {
+        if (!canClick) return;
         GameManagement.LoadGameScene();
+    }
+
+    IEnumerator StartClick()
+    {
+        canClick = false;
+        yield return new WaitForSeconds(2f);
+        canClick = true;
     }
 }

@@ -15,6 +15,7 @@ public class GameManagement : MonoBehaviour
 
     public static GameMode currentMode = GameMode.Menu;
     public static bool portOpen = false;
+    public static bool guardsActive;
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class GameManagement : MonoBehaviour
             if (SceneManager.GetActiveScene().buildIndex == 1)
                 currentMode = GameMode.Gameplay;
             portOpen = false;
+            guardsActive = true;
         }
     }
 

@@ -31,6 +31,7 @@ public class GuardBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManagement.guardsActive) return;
         /* To-do:
          * - check if player visible (+ margin of delay time) with raycasting
          * - - if not, proceed to go towards one of the points (with navmesh)
