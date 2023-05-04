@@ -36,6 +36,7 @@ public class WinManager : MonoBehaviour
             StartCoroutine(CanClick());
         }
     }
+
     public void MenuButtonClick()
     {
         if (canClickButton)
