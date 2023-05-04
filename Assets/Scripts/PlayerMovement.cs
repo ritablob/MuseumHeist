@@ -46,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Rotate(int value)
     {
+        if (!GameManagement.guardsActive) return;
+
         // rotate based on difference between value and last value
         float difference = value - lastRotation + lastKnobRotation;
         float rotationAmount = (value - lastRotation) * rotationSpeed;
