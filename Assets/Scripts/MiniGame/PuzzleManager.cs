@@ -17,6 +17,11 @@ public class PuzzleManager : MonoBehaviour
     [SerializeField] Sprite emptyImg;
     [SerializeField] Image fullImageRenderer;
 
+    [Space]
+    [SerializeField] private GuardBehaviour guardBehaviour;
+    [SerializeField] private GameObject invisCounterObj;
+    [SerializeField] private PlayerMovement player;
+
     bool won = false;
 
     void Start()
@@ -49,6 +54,7 @@ public class PuzzleManager : MonoBehaviour
         {
             MoveTile();
         }
+        else if (Input.GetKeyDown(KeyCode.Backspace)) CorrectOrder();
     }
 
     public void SetUpMiniGame()
@@ -85,6 +91,11 @@ public class PuzzleManager : MonoBehaviour
         currentlySelectedTile = 0;
         emptyTile.neighbours[currentlySelectedTile].SelectTile();
         won = false;
+
+        // set up other in game stuff
+        if (guardBehaviour != null) guardBehaviour.StartPuzzle();
+        if (invisCounterObj != null) { invisCounterObj.SetActive(false); }
+        if (player != null) player.Movement(false);
     }
 
     public void MoveTile()
@@ -132,11 +143,14 @@ public class PuzzleManager : MonoBehaviour
 
     public void CorrectOrder()
     {
+        Debug.Log("won");
         won = true;
 
         puzzleObject.SetActive(false);
         GameManagement.guardsActive = true;
         GameManagement.currentMode = GameManagement.GameMode.Gameplay;
+
+        if (invisCounterObj != null) { invisCounterObj.SetActive(true); }
     }
 }
 

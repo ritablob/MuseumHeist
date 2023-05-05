@@ -96,7 +96,7 @@ public class GuardBehaviour : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                if (!playerVisible)
+                if (!playerVisible && GameManagement.guardsActive)
                 {
                     led.GuardSeesPlayer(true);
                     buzzer.ActivateBuzzer(true);
@@ -128,5 +128,13 @@ public class GuardBehaviour : MonoBehaviour
             navMeshAgent.isStopped = true;
             winManager.CheckLose();
         }
+    }
+
+    public void StartPuzzle()
+    {
+        audioSource.Stop();
+        playerVisible = false;
+        buzzer.ActivateBuzzer(false);
+        led.GuardSeesPlayer(false);
     }
 }

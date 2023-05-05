@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class ArtefactBehaviour : MonoBehaviour
 {
-    public WinManager gameManager;
-    // Start is called before the first frame update
+    public WinManager winManager;
+    [SerializeField] private PuzzleManager puzzleManager;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             gameObject.SetActive(false);
-            gameManager.hasArtefact = true;
-            Debug.Log("Inventory status = " + gameManager.hasArtefact);
+            winManager.hasArtefact = true;
+            puzzleManager.SetUpMiniGame();
+
+            Debug.Log("Inventory status = " + winManager.hasArtefact);
         }
     }
 }
