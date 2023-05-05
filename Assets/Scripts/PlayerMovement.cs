@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         lastKnobRotation = PlayerPrefs.GetInt("LastRotation");
-        visible = true;
+        Visible = true;
         lastRotation = 90;
     }
 
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.A)) Rotate(lastRotation - 1);
         if (Input.GetKey(KeyCode.D)) Rotate(lastRotation + 1);
 
-        if (controller != null && buttonPressed && visible) 
+        if (controller != null && buttonPressed && Visible) 
         {
             controller.Move(transform.forward * Time.deltaTime * movementSpeed);
         }
@@ -65,8 +65,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Invisibility(bool invisible) 
     {
-        visible = !invisible;
-        if (!visible) EventManager.Instance.EventGo("AUDIO", "InvisibleOn");
+        Visible = !invisible;
+        if (!Visible) EventManager.Instance.EventGo("AUDIO", "InvisibleOn");
         else EventManager.Instance.EventGo("AUDIO", "InvisibleOff");
     }
 

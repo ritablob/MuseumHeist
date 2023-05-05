@@ -15,6 +15,7 @@ public class WinManager : MonoBehaviour
     private void Start()
     {
         winCanvas.SetActive(false);
+        loseCanvas.SetActive(false);
         canClickButton = false;
     }
     private void OnTriggerEnter(Collider other)

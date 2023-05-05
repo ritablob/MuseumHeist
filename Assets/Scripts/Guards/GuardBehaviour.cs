@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GuardBehaviour : MonoBehaviour
 {
@@ -25,11 +26,15 @@ public class GuardBehaviour : MonoBehaviour
     public Transform player;
     Vector3 lastKnownPlayerPosition;
 
+    public WinManager winManager;
+    PlayerMovement playerM;
+
     void Start()
     {
         navMeshAgent = transform.GetComponent<NavMeshAgent>();
         buzzer = GetComponent<Buzzer>();
         audioSource = GetComponent<AudioSource>();
+        playerM = player.GetComponent<PlayerMovement>();
     }
 
     void Update()
@@ -67,13 +72,14 @@ public class GuardBehaviour : MonoBehaviour
         }
         else
         {
-            /*if (navMeshAgent.remainingDistance < 1f)
+            if (playerM.Visible)
             {
-            // game over
-                isLookingForPlayer = false;
-            }*/
-
-            navMeshAgent.SetDestination(lastKnownPlayerPosition);
+                navMeshAgent.SetDestination(lastKnownPlayerPosition);
+            }
+            else
+            {
+                playerVisible = false;
+            }
         }
 
         ray = new Ray(rayStartPosition, player.position - rayStartPosition);
@@ -103,6 +109,15 @@ public class GuardBehaviour : MonoBehaviour
                 rayColour = Color.red;
             }
             Debug.DrawRay(rayStartPosition, player.position - rayStartPosition, rayColour);
+        }
+
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            navMeshAgent.isStopped = true;
+            winManager.CheckLose();
         }
     }
 }
