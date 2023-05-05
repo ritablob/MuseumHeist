@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class WinManager : MonoBehaviour
 {
     public GameObject winCanvas;
+    public GameObject loseCanvas;
     [HideInInspector] public bool hasArtefact;
     public bool canClickButton;
     float cooldown = 2f;
@@ -35,6 +36,13 @@ public class WinManager : MonoBehaviour
             GameManagement.guardsActive = false;
             StartCoroutine(CanClick());
         }
+    }
+    public void CheckLose()
+    {
+        loseCanvas.SetActive(true);
+        GameManagement.currentMode = GameManagement.GameMode.UIWin;
+        GameManagement.guardsActive = false;
+        StartCoroutine(CanClick());
     }
 
     public void MenuButtonClick()

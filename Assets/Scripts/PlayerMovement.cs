@@ -13,6 +13,11 @@ public class PlayerMovement : MonoBehaviour
     public int lastRotation;
     public int lastKnobRotation;
     private bool visible;
+    public bool Visible
+    {
+        get { return visible; }
+        private set { visible = value; }
+    }
 
     void Start()
     {
@@ -34,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         // remove once arduino is set up
         if (Input.GetKeyDown(KeyCode.W)) buttonPressed = true;
         if (Input.GetKeyUp(KeyCode.W)) buttonPressed = false;
-        if (Input.GetKeyDown(KeyCode.I)) Invisibility(visible);
+        if (Input.GetKey(KeyCode.I)) { Invisibility(true); Debug.Log("invisible"); } else { Invisibility(false); Debug.Log("visible"); }
         if (Input.GetKey(KeyCode.A)) Rotate(lastRotation - 1);
         if (Input.GetKey(KeyCode.D)) Rotate(lastRotation + 1);
 
@@ -58,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
         lastRotation = value;
     }
 
-    public void Invisibility(bool invisible)
+    public void Invisibility(bool invisible) 
     {
         visible = !invisible;
         if (!visible) EventManager.Instance.EventGo("AUDIO", "InvisibleOn");
