@@ -75,6 +75,10 @@ public class GuardBehaviour : MonoBehaviour
             if (!playerM.Visible)
             {
                 playerVisible = false;
+                led.GuardSeesPlayer(false);
+                buzzer.ActivateBuzzer(false);
+                audioSource.Stop();
+
                 if (navMeshAgent.remainingDistance < 1f)
                 {
                     currentCoordinate++;
