@@ -41,6 +41,7 @@ public class GameManagement : MonoBehaviour
         Debug.Log("Load Game Scene");
         SceneManager.LoadScene(1);
         currentMode = GameMode.Gameplay;
+        guardsActive = true;
     }
 
     public static void LoadStartMenu()

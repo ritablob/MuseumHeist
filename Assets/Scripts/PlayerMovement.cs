@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private float rotationSpeed;
 
-    public int lastRotation;
+    public int lastKeyRotation;
     public int lastKnobRotation;
     private bool visible;
     public bool Visible
@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         lastKnobRotation = PlayerPrefs.GetInt("LastRotation");
         Visible = true;
-        lastRotation = 90;
+        lastKeyRotation = 90;
         invisibilityTimer = 0;
 
         materials = new List<Material>();
@@ -68,8 +68,8 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("visible");
             }
         }
-        if (Input.GetKey(KeyCode.A)) Rotate(lastRotation - 1);
-        if (Input.GetKey(KeyCode.D)) Rotate(lastRotation + 1);
+        if (Input.GetKey(KeyCode.A)) RotateWithKeys(lastKeyRotation - 1);
+        if (Input.GetKey(KeyCode.D)) RotateWithKeys(lastKeyRotation + 1);
 
         if (controller != null && buttonPressed && Visible) 
         {
@@ -82,13 +82,22 @@ public class PlayerMovement : MonoBehaviour
         if (!GameManagement.guardsActive) return;
 
         // rotate based on difference between value and last value
-        float difference = value - lastRotation + lastKnobRotation;
-        float rotationAmount = (value - lastRotation) * rotationSpeed;
+        float difference = value - lastKnobRotation;
+        float rotationAmount = (value - lastKnobRotation) * rotationSpeed;
         if (difference > 150) rotationAmount = 0;
         transform.Rotate(Vector3.up, rotationAmount);
 
         // save value for next time
-        lastRotation = value;
+        lastKnobRotation = value;
+    }
+
+    public void RotateWithKeys(int value)
+    {
+        if (!GameManagement.guardsActive) return;
+
+        float rotationAmount = (value - lastKeyRotation) * (rotationSpeed / 2f);
+        transform.Rotate(Vector3.up, rotationAmount);
+        lastKeyRotation = value;
     }
 
     public void SetVisibility(bool _visible) 
