@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -18,6 +19,9 @@ public class PlayerMovement : MonoBehaviour
         get { return visible; }
         private set { visible = value; }
     }
+    public float invisibilityLimit = 10f;
+    public float invisibilityTimer;
+    private bool rechargingInvisibility;
 
     void Start()
     {
@@ -25,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         lastKnobRotation = PlayerPrefs.GetInt("LastRotation");
         Visible = true;
         lastRotation = 90;
+        invisibilityTimer = 0;
     }
 
     private void OnDestroy()
@@ -41,13 +46,20 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.W)) buttonPressed = false;
         if (Input.GetKeyDown(KeyCode.I))
         {
-            SetVisibility(false);
-            Debug.Log("invisible");
+            if (!rechargingInvisibility)
+            {
+                SetVisibility(false);
+                Debug.Log("invisible");
+                StartCoroutine(InvisibilityTimer());
+            }
         }
         if (Input.GetKeyUp(KeyCode.I))
         {
-            SetVisibility(true);
-            Debug.Log("visible");
+            if (!rechargingInvisibility)
+            {
+                SetVisibility(true);
+                Debug.Log("visible");
+            }
         }
         if (Input.GetKey(KeyCode.A)) Rotate(lastRotation - 1);
         if (Input.GetKey(KeyCode.D)) Rotate(lastRotation + 1);
@@ -82,5 +94,38 @@ public class PlayerMovement : MonoBehaviour
     public void Movement(bool shouldMove)
     {
         buttonPressed = shouldMove;
+    }
+
+    IEnumerator InvisibilityTimer()
+    {
+        if (invisibilityTimer < invisibilityLimit && !Visible)
+        {
+            yield return new WaitForSeconds(1);
+            invisibilityTimer++;
+            StartCoroutine(InvisibilityTimer());
+        }
+        else
+        {
+            Debug.Log("Timer has run out");
+            if (!Visible)
+                SetVisibility(true);
+            rechargingInvisibility = true;
+            StartCoroutine(Recharging());
+        }
+    }
+    IEnumerator Recharging()
+    {
+        if (invisibilityTimer > 0)
+        {
+            rechargingInvisibility = true;
+            yield return new WaitForSeconds(1);
+            invisibilityTimer--;
+            StartCoroutine(Recharging());
+        }
+        else
+        {
+            rechargingInvisibility = false;
+            yield return null;
+        }
     }
 }

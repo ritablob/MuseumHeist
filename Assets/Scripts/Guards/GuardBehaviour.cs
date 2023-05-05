@@ -72,13 +72,22 @@ public class GuardBehaviour : MonoBehaviour
         }
         else
         {
-            if (playerM.Visible)
+            if (!playerM.Visible)
             {
-                navMeshAgent.SetDestination(lastKnownPlayerPosition);
+                playerVisible = false;
+                if (navMeshAgent.remainingDistance < 1f)
+                {
+                    currentCoordinate++;
+                    if (currentCoordinate >= coordinateList.Count)
+                    {
+                        currentCoordinate = 0;
+                    }
+                }
+                navMeshAgent.SetDestination(coordinateList[currentCoordinate].position);
             }
             else
             {
-                playerVisible = false;
+                navMeshAgent.SetDestination(lastKnownPlayerPosition);
             }
         }
 
