@@ -23,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
     public float invisibilityTimer;
     private bool rechargingInvisibility;
 
+    [SerializeField] List<MeshRenderer> renderers;
+    List<Material> materials;
+    [SerializeField] Material transparent;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -30,6 +34,9 @@ public class PlayerMovement : MonoBehaviour
         Visible = true;
         lastRotation = 90;
         invisibilityTimer = 0;
+
+        materials = new List<Material>();
+        foreach (MeshRenderer rend in renderers) { materials.Add(rend.material); }
     }
 
     private void OnDestroy()
@@ -87,8 +94,19 @@ public class PlayerMovement : MonoBehaviour
     public void SetVisibility(bool _visible) 
     {
         Visible = _visible;
-        if (!Visible) EventManager.Instance.EventGo("AUDIO", "InvisibleOn");
-        else EventManager.Instance.EventGo("AUDIO", "InvisibleOff");
+        if (!Visible)
+        {
+            EventManager.Instance.EventGo("AUDIO", "InvisibleOn");
+            foreach (MeshRenderer rend in renderers) { rend.material = transparent; }
+        }
+        else
+        {
+            EventManager.Instance.EventGo("AUDIO", "InvisibleOff");
+            for (int i = 0; i < renderers.Count; i++)
+            {
+                renderers[i].material = materials[i];
+            }
+        }
     }
 
     public void Movement(bool shouldMove)

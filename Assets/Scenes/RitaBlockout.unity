@@ -10407,6 +10407,10 @@ MonoBehaviour:
   lastKnobRotation: 0
   invisibilityLimit: 3
   invisibilityTimer: 0
+  renderers:
+  - {fileID: 691159870}
+  - {fileID: 1318130270}
+  transparent: {fileID: 2100000, guid: 5fe2a46b238b19846921620fe526a553, type: 2}
 --- !u!4 &1896983688
 Transform:
   m_ObjectHideFlags: 0
