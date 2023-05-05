@@ -42,13 +42,14 @@ public class MenuController : MonoBehaviour, IArduinoInput
                 break;
             case "Button Move Pressed":
                 uiElements[currentlySelectedElement].ClickElement();
+                EventManager.Instance.EventGo("AUDIO", "Click");
                 break;
             case "Button Move Released":
                 break;
             default: // default is the rotatry encoder from which we get the actual value of rotation
                 if (canRotate)
                 {
-                    uiElements[currentlySelectedElement].DeselectElement();
+                    int previous = currentlySelectedElement;
                     if (int.Parse(message) > lastSavedRotation)
                     {
                         currentlySelectedElement++;
@@ -60,7 +61,13 @@ public class MenuController : MonoBehaviour, IArduinoInput
                         if (currentlySelectedElement < 0) currentlySelectedElement = uiElements.Count - 1;
                     }
                     lastSavedRotation = int.Parse(message);
-                    uiElements[currentlySelectedElement].SelectElement();
+
+                    if (previous != currentlySelectedElement) 
+                    {
+                        uiElements[currentlySelectedElement].SelectElement();
+                        uiElements[previous].DeselectElement();
+                        EventManager.Instance.EventGo("AUDIO", "Select");
+                    }
                     StartCoroutine(Cooldown());
                 }
                 else

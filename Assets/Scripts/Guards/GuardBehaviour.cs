@@ -8,6 +8,7 @@ public class GuardBehaviour : MonoBehaviour
 {
     [SerializeField] private LEDBlinking led;
     private Buzzer buzzer;
+    private AudioSource audioSource;
 
     RaycastHit hit;
     Ray ray;
@@ -28,6 +29,7 @@ public class GuardBehaviour : MonoBehaviour
     {
         navMeshAgent = transform.GetComponent<NavMeshAgent>();
         buzzer = GetComponent<Buzzer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -83,6 +85,7 @@ public class GuardBehaviour : MonoBehaviour
                 {
                     led.GuardSeesPlayer(true);
                     buzzer.ActivateBuzzer(true);
+                    audioSource.Play();
                 }
                 playerVisible = true;
                 rayColour = Color.green;
@@ -94,6 +97,7 @@ public class GuardBehaviour : MonoBehaviour
                 {
                     led.GuardSeesPlayer(false);
                     buzzer.ActivateBuzzer(false);
+                    audioSource.Stop();
                 }
                 playerVisible = false;
                 rayColour = Color.red;

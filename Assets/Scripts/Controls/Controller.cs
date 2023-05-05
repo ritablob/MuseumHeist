@@ -75,7 +75,7 @@ public class Controller : MonoBehaviour
 
     public void SendToArduino(string message)
     {
-        sp.WriteLine(message);
+        if (isStreaming) sp.WriteLine(message);
     }
 
     void ControllerListener(string eventName, object param)

@@ -61,6 +61,8 @@ public class PlayerMovement : MonoBehaviour
     public void Invisibility(bool invisible)
     {
         visible = !invisible;
+        if (!visible) EventManager.Instance.EventGo("AUDIO", "InvisibleOn");
+        else EventManager.Instance.EventGo("AUDIO", "InvisibleOff");
     }
 
     public void Movement(bool shouldMove)
