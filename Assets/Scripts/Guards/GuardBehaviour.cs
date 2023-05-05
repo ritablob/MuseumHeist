@@ -25,19 +25,11 @@ public class GuardBehaviour : MonoBehaviour
     public Transform player;
     Vector3 lastKnownPlayerPosition;
 
-    WinManager winManager;
-    PlayerMovement playerM;
-
     void Start()
     {
         navMeshAgent = transform.GetComponent<NavMeshAgent>();
         buzzer = GetComponent<Buzzer>();
-<<<<<<< Updated upstream
         audioSource = GetComponent<AudioSource>();
-=======
-        winManager = GameObject.FindGameObjectWithTag("Win").GetComponent<WinManager>(); 
-        playerM = player.GetComponent<PlayerMovement>();
->>>>>>> Stashed changes
     }
 
     void Update()
@@ -53,10 +45,10 @@ public class GuardBehaviour : MonoBehaviour
             navMeshAgent.isStopped = false;
         }
 
-        /* 
+        /* To-do:
          * - check if player visible (+ margin of delay time) with raycasting
          * - - if not, proceed to go towards one of the points (with navmesh)
-         * - - if yes, follow player until it is not visible anymore
+         * - - if yes, follow player until it is not visible anymore, and then walk in that direction some time more,
          * and then continue to the usual route
          */
         rayStartPosition = transform.position;
@@ -75,14 +67,13 @@ public class GuardBehaviour : MonoBehaviour
         }
         else
         {
-            if (playerM.Visible) 
+            /*if (navMeshAgent.remainingDistance < 1f)
             {
-                navMeshAgent.SetDestination(lastKnownPlayerPosition);
-            }
-            else
-            {
-                playerVisible = false;
-            }
+            // game over
+                isLookingForPlayer = false;
+            }*/
+
+            navMeshAgent.SetDestination(lastKnownPlayerPosition);
         }
 
         ray = new Ray(rayStartPosition, player.position - rayStartPosition);
@@ -112,13 +103,6 @@ public class GuardBehaviour : MonoBehaviour
                 rayColour = Color.red;
             }
             Debug.DrawRay(rayStartPosition, player.position - rayStartPosition, rayColour);
-        }
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            winManager.CheckLose();
         }
     }
 }
