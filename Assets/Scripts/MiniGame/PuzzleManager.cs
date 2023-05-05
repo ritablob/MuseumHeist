@@ -96,6 +96,8 @@ public class PuzzleManager : MonoBehaviour
         if (guardBehaviour != null) guardBehaviour.StartPuzzle();
         if (invisCounterObj != null) { invisCounterObj.SetActive(false); }
         if (player != null) player.Movement(false);
+
+        EventManager.Instance.EventGo("AUDIO", "Puzzle");
     }
 
     public void MoveTile()
@@ -151,6 +153,7 @@ public class PuzzleManager : MonoBehaviour
         GameManagement.currentMode = GameManagement.GameMode.Gameplay;
 
         if (invisCounterObj != null) { invisCounterObj.SetActive(true); }
+        EventManager.Instance.EventGo("AUDIO", "Collect");
     }
 }
 
