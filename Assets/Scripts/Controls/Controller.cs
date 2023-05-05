@@ -75,7 +75,19 @@ public class Controller : MonoBehaviour
 
     public void SendToArduino(string message)
     {
+<<<<<<< Updated upstream
         if (isStreaming) sp.WriteLine(message);
+=======
+        if (sp != null)
+        {
+            sp.WriteLine(message);
+        }
+        else
+        {
+            // null ref
+        }
+
+>>>>>>> Stashed changes
     }
 
     void ControllerListener(string eventName, object param)
