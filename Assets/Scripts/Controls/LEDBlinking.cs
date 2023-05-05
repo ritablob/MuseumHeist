@@ -63,6 +63,7 @@ public class LEDBlinking : MonoBehaviour
         }
 
         /*
+        if (GameManagement.currentMode == GameManagement.GameMode.Puzzle) return;
         if (Input.GetKeyDown(KeyCode.DownArrow)) { ChangeLEDSpeed(false); }
         else if (Input.GetKeyDown(KeyCode.UpArrow)) { ChangeLEDSpeed(true); }
 

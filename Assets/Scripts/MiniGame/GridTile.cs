@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class GridTile : MonoBehaviour
 {
     public List<GridTile> neighbours;
     [SerializeField] private GameObject imgObject;
-    Image image;
     [SerializeField] GameObject highlight;
+    [SerializeField] private Image image;
 
     public void SetImage(Sprite sprite)
     {
@@ -24,5 +24,10 @@ public class GridTile : MonoBehaviour
     public void DeselectTile()
     {
         highlight.SetActive(false);
+    }
+
+    public Sprite Current()
+    {
+        return image.sprite;
     }
 }
