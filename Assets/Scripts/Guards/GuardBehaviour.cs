@@ -100,7 +100,7 @@ public class GuardBehaviour : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                if (!playerVisible && GameManagement.guardsActive)
+                if (!playerVisible && playerM.Visible && GameManagement.guardsActive)
                 {
                     led.GuardSeesPlayer(true);
                     buzzer.ActivateBuzzer(true);
