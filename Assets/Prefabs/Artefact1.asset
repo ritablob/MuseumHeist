@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1dca8decd32114d8d39d1390c5ebdb, type: 3}
+  m_Name: Artefact1
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 3549a49d0d336074e937c924536014cc, type: 3}
+  - {fileID: 21300000, guid: 3703020267d1c8a40a7945b98cad502a, type: 3}
+  - {fileID: 21300000, guid: 0c26024fbce54d64ebd5d7f9a72a9c9e, type: 3}
+  - {fileID: 21300000, guid: b466ae21cb0e3aa4f906505f8e14e008, type: 3}
+  - {fileID: 21300000, guid: 1a7c0522649f1444e9603386b171a409, type: 3}
+  - {fileID: 21300000, guid: ee072f478da4eb34abf7b2a9dd1cd27e, type: 3}
+  - {fileID: 21300000, guid: 3745368b5a23b7748a6cb3d47c34f100, type: 3}
+  - {fileID: 21300000, guid: aa37a6dd88e4604459e047d6d870c545, type: 3}
+  fullImage: {fileID: 21300000, guid: f1ee9f445865c8a4c840b8d90e185592, type: 3}
+  ninthSprite: {fileID: 21300000, guid: e8efaf14527d1884aac045ec968786df, type: 3}

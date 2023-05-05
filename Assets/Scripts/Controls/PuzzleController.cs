@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PuzzleController : MonoBehaviour, IArduinoInput
 {
+    private GridManager gridManager;
+
     private void Start()
     {
         EventManager.Instance.AddEventListener("CONTROLLER", ControllerListener);
+        gridManager = GetComponent<GridManager>();
     }
 
     private void OnDestroy()
