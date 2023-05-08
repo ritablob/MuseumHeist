@@ -68,22 +68,50 @@ public class PuzzleManager : MonoBehaviour
         {
             currentCollection = Random.Range(0, artefactCollections.Count);
         }
-        List<Sprite> spritesToAdd = new List<Sprite>();
-        foreach (Sprite sprite in artefactCollections[currentCollection].sprites) spritesToAdd.Add(sprite);
-        fullImageRenderer.sprite = artefactCollections[currentCollection].fullImage;
 
-        foreach (GridTile tile in tiles)
+        bool solvable = false;
+
+        // create a solvable puzzle
+        while (!solvable)
         {
-            // assign a random image of selection to first 8 tiles
-            if (spritesToAdd.Count > 0)
+            List<Sprite> spritesToAdd = new List<Sprite>();
+            foreach (Sprite sprite in artefactCollections[currentCollection].sprites) spritesToAdd.Add(sprite);
+            fullImageRenderer.sprite = artefactCollections[currentCollection].fullImage;
+
+            List<int> order = new List<int>();
+
+            foreach (GridTile tile in tiles)
             {
-                int random = Random.Range(0, spritesToAdd.Count);
-                tile.SetImage(spritesToAdd[random]);
-                spritesToAdd.RemoveAt(random);
+                // assign a random image of selection to first 8 tiles
+                if (spritesToAdd.Count > 0)
+                {
+                    int random = Random.Range(0, spritesToAdd.Count);
+                    tile.SetImage(spritesToAdd[random]);
+                    order.Add(artefactCollections[currentCollection].sprites.IndexOf(spritesToAdd[random]));
+                    spritesToAdd.RemoveAt(random);
+                }
+
+                // deselect all tiles
+                tile.DeselectTile();
             }
 
-            // deselect all tiles
-            tile.DeselectTile();
+            int inversions = 0;
+
+            // check if generated puzzle is solvable (check for number of inversions, needs to be even)
+            for (int i = 0; i < order.Count; i++)
+            {
+                for (int j = i; j < order.Count; j++) 
+                {
+                    if (order[i] > order[j]) inversions++;
+                }
+            }
+
+
+            if (inversions % 2 == 0)
+            {
+                solvable = true;
+            }
+            //Debug.Log("randomated puzzle was solvable ? " + solvable);
         }
 
         // set empty tile, 
