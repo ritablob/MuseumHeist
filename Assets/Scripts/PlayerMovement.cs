@@ -100,6 +100,25 @@ public class PlayerMovement : MonoBehaviour
         lastKeyRotation = value;
     }
 
+    public void LightBarrierInvisible(bool _visible)
+    {
+        if (!_visible)
+        {
+            if (!rechargingInvisibility)
+            {
+                SetVisibility(false);
+                StartCoroutine(InvisibilityTimer());
+            }
+        }
+        else
+        {
+            if (!rechargingInvisibility)
+            {
+                SetVisibility(true);
+            }
+        }
+    }
+
     public void SetVisibility(bool _visible) 
     {
         Visible = _visible;

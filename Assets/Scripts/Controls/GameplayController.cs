@@ -37,11 +37,11 @@ public class GameplayController : MonoBehaviour, IArduinoInput
         {
             case "Light Barrier Open":
                 Debug.Log("no longer invisible");
-                player.SetVisibility(true);
+                player.LightBarrierInvisible(true);
                 break;
             case "Light Barrier Closed":
                 Debug.Log("invisible wuaaaah");
-                player.SetVisibility(false);
+                player.LightBarrierInvisible(false);
                 break;
             case "Button Move Pressed":
                 player.Movement(true);
