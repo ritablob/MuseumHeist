@@ -129,6 +129,7 @@ public class GuardBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             if (collision.gameObject.GetComponent<PlayerMovement>() != null && !collision.gameObject.GetComponent<PlayerMovement>().Visible) return;
+            if (!GameManagement.guardsActive) return;
 
             navMeshAgent.isStopped = true;
             winManager.CheckLose();
