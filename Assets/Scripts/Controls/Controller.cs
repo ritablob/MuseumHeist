@@ -4,8 +4,6 @@ using UnityEngine;
 using System.IO.Ports;
 using System.Threading;
 using System;
-using Unity.VisualScripting;
-using UnityEngine.UI;
 
 public class Controller : MonoBehaviour
 {

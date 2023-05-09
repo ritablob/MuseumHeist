@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class PuzzleManager : MonoBehaviour
