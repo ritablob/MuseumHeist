@@ -30,11 +30,19 @@ public class StartMenu : MonoBehaviour
     public void InputPortName()
     {
         string portName = portNameField.text;
-        if (portName != "" && portName.Contains("COM"))
+        if (portName.Contains("COM"))
         {
             EventManager.Instance.EventGo("CONTROLLER", "OpenConnection", portName);
             titleScreen.SetActive(false);
             chooseScreen.SetActive(true);
+            GameManagement.playWithKeys = false;
+        }
+        else if (portName == "")
+        {
+            // play using just keys
+            titleScreen.SetActive(false);
+            chooseScreen.SetActive(true);
+            GameManagement.playWithKeys = true;
         }
     }
 

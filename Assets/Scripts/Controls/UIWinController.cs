@@ -35,7 +35,7 @@ public class UIWinController : MonoBehaviour, IArduinoInput
                 break;
             case "Button Move Released":
                 break;
-            default: // default is the rotatry encoder from which we get the actual value of rotation
+            default: // default is the rotary encoder from which we get the actual value of rotation
                 break;
         }
     }

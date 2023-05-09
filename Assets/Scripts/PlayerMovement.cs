@@ -47,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!GameManagement.guardsActive) return;
 
-        // remove once arduino is set up
         if (Input.GetKeyDown(KeyCode.W)) buttonPressed = true;
         if (Input.GetKeyUp(KeyCode.W)) buttonPressed = false;
         if (Input.GetKeyDown(KeyCode.I))

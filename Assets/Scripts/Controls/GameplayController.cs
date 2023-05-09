@@ -49,7 +49,7 @@ public class GameplayController : MonoBehaviour, IArduinoInput
             case "Button Move Released":
                 player.Movement(false);
                 break;
-            default: // default is the rotatry encoder from which we get the actual value of rotation
+            default: // default is the rotary encoder from which we get the actual value of rotation
                 player.Rotate(int.Parse(message));
                 break;
         }

@@ -42,12 +42,3 @@ public class EventManager
                 eventListener[eventID][i](eventName, param);
     }
 }
-/*
-List of Event Listeners
---> CONTROLLER
-- IncomingDataArduino (sent by controller script, event listeners are all individual icontrollers)
-- OutgoingDataArduino (sent by all individual icontrollers, read by controller script)
-- OpenConnection
-- CloseConnection
-
-*/

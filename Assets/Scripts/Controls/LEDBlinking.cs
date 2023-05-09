@@ -62,8 +62,7 @@ public class LEDBlinking : MonoBehaviour
                 currentSpeed = calmNearRobot;
         }
 
-        /*
-        if (GameManagement.currentMode == GameManagement.GameMode.Puzzle) return;
+        /* used for testing:
         if (Input.GetKeyDown(KeyCode.DownArrow)) { ChangeLEDSpeed(false); }
         else if (Input.GetKeyDown(KeyCode.UpArrow)) { ChangeLEDSpeed(true); }
 
@@ -75,6 +74,7 @@ public class LEDBlinking : MonoBehaviour
         */
     }
 
+    // used for testing
     public void ChangeLEDSpeed(bool faster = true)
     {
         if (!faster) { currentSpeed += incrementSteps; }

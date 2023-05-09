@@ -16,6 +16,7 @@ public class GameManagement : MonoBehaviour
     public static GameMode currentMode = GameMode.Menu;
     public static bool portOpen = false;
     public static bool guardsActive;
+    public static bool playWithKeys;
 
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class GameManagement : MonoBehaviour
                 currentMode = GameMode.Gameplay;
             portOpen = false;
             guardsActive = true;
+            playWithKeys = false;
         }
     }
 
@@ -53,7 +55,7 @@ public class GameManagement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O) && !portOpen && SceneManager.GetActiveScene().buildIndex != 0)
+        if (Input.GetKeyDown(KeyCode.O) && !portOpen && SceneManager.GetActiveScene().buildIndex != 0 && !playWithKeys)
         {
             EventManager.Instance.EventGo("CONTROLLER", "OpenConnection", defaultPortName);
         }

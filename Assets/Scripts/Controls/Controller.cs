@@ -7,10 +7,6 @@ using System;
 
 public class Controller : MonoBehaviour
 {
-    //[SerializeField] private PlayerMovement player;
-    //GameManager gameManager;
-    //public Button menuButton;
-
     private static string port = "COM3";
 
     SerialPort sp;
@@ -47,8 +43,6 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
-        //OpenConnection();
-
         EventManager.Instance.AddEventListener("CONTROLLER", ControllerListener);
     }
 
