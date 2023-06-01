@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// handles functionality of the start menu
+/// --> input field for which port to choose
+/// --> (de-)activating the title screen and choose screen
+/// --> telling game manager when to load the game scene
+/// </summary>
+
 public class StartMenu : MonoBehaviour
 {
     [SerializeField] GameObject titleScreen;
@@ -27,6 +34,7 @@ public class StartMenu : MonoBehaviour
         StartCoroutine(StartClick());
     }
 
+    // called by button in menu
     public void InputPortName()
     {
         string portName = portNameField.text;

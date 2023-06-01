@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// handles all player behaviour (mostly movement)
+/// gets data from gameplay controller script and then moves/rotates the player using character controller based on that
+/// handles invisibility via light barrier
+/// </summary>
+
 public class PlayerMovement : MonoBehaviour
 {
     CharacterController controller;
@@ -12,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     public int lastKeyRotation;
     public int lastKnobRotation;
+
     private bool visible;
     public bool Visible
     {
@@ -47,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!GameManagement.gameplayActive) return;
 
+        #region Key Input for Testing
         if (Input.GetKeyDown(KeyCode.W)) buttonPressed = true;
         if (Input.GetKeyUp(KeyCode.W)) buttonPressed = false;
         if (Input.GetKeyDown(KeyCode.I))
@@ -68,7 +76,9 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.A)) RotateWithKeys(lastKeyRotation - 1);
         if (Input.GetKey(KeyCode.D)) RotateWithKeys(lastKeyRotation + 1);
+        #endregion
 
+        // if the button is currently being pressed and the player is visible, move player
         if (controller != null && buttonPressed && Visible) 
         {
             controller.Move(transform.forward * Time.deltaTime * movementSpeed);
