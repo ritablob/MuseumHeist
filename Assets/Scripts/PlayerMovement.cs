@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (!GameManagement.guardsActive) return;
+        if (!GameManagement.gameplayActive) return;
 
         if (Input.GetKeyDown(KeyCode.W)) buttonPressed = true;
         if (Input.GetKeyUp(KeyCode.W)) buttonPressed = false;
@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Rotate(int value)
     {
-        if (!GameManagement.guardsActive) return;
+        if (!GameManagement.gameplayActive) return;
 
         // rotate based on difference between value and last value
         float difference = value - lastKnobRotation;
@@ -91,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void RotateWithKeys(int value)
     {
-        if (!GameManagement.guardsActive) return;
+        if (!GameManagement.gameplayActive) return;
 
         float rotationAmount = (value - lastKeyRotation) * (rotationSpeed / 2f);
         transform.Rotate(Vector3.up, rotationAmount);

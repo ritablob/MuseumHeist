@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// controller script after the game is won
+/// receives data (string message) from controller script via event manager
+/// basically we just wait for the player to press the button again before returning to the main menu
+/// </summary>
+
 public class UIWinController : MonoBehaviour, IArduinoInput
 {
     private void Start()

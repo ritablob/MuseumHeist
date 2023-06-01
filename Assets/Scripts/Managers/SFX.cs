@@ -2,6 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// handles all sound effects during gameplay
+/// receives message which sound to play via event manager
+/// then plays oneshot of corresponding sound
+/// has a reference to each clip and their volume
+/// click and select have a cooldown so they can't be triggered too closely
+/// all functions that play a oneshot are also available to play via the editor for easier mixing
+/// </summary>
+
 public class SFX : MonoBehaviour
 {
     private AudioSource audioSource;
@@ -113,6 +122,4 @@ public class SFX : MonoBehaviour
         yield return new WaitForSeconds(cooldown);
         canPlaySelect = true;
     }
-
-
 }

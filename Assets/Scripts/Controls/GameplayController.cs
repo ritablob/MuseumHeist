@@ -3,6 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// controller script during museum gameplay
+/// receives data (string message) from controller script via event manager
+/// calls corresponding functions in the player script for the different functionalities: rotation, forward movement and invisibility
+/// </summary>
+
 public interface IArduinoInput
 {
     void DataFromArduino(string message);

@@ -38,11 +38,11 @@ public class GuardBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (!GameManagement.guardsActive)
+        if (!GameManagement.gameplayActive)
         {
             navMeshAgent.isStopped = true;
             led.GuardSeesPlayer(false);
-            buzzer.ActivateBuzzer(false);
+            buzzer.SetBuzzer(false);
         }
         else
         {
@@ -75,7 +75,7 @@ public class GuardBehaviour : MonoBehaviour
             {
                 playerVisible = false;
                 led.GuardSeesPlayer(false);
-                buzzer.ActivateBuzzer(false);
+                buzzer.SetBuzzer(false);
                 audioSource.Stop();
 
                 if (navMeshAgent.remainingDistance < 1f)
@@ -99,10 +99,10 @@ public class GuardBehaviour : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                if (!playerVisible && playerM.Visible && GameManagement.guardsActive)
+                if (!playerVisible && playerM.Visible && GameManagement.gameplayActive)
                 {
                     led.GuardSeesPlayer(true);
-                    buzzer.ActivateBuzzer(true);
+                    buzzer.SetBuzzer(true);
                     audioSource.Play();
                 }
                 playerVisible = true;
@@ -114,7 +114,7 @@ public class GuardBehaviour : MonoBehaviour
                 if (playerVisible)
                 {
                     led.GuardSeesPlayer(false);
-                    buzzer.ActivateBuzzer(false);
+                    buzzer.SetBuzzer(false);
                     audioSource.Stop();
                 }
                 playerVisible = false;
@@ -129,7 +129,7 @@ public class GuardBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             if (collision.gameObject.GetComponent<PlayerMovement>() != null && !collision.gameObject.GetComponent<PlayerMovement>().Visible) return;
-            if (!GameManagement.guardsActive) return;
+            if (!GameManagement.gameplayActive) return;
 
             navMeshAgent.isStopped = true;
             winManager.CheckLose();
@@ -140,7 +140,7 @@ public class GuardBehaviour : MonoBehaviour
     {
         audioSource.Stop();
         playerVisible = false;
-        buzzer.ActivateBuzzer(false);
+        buzzer.SetBuzzer(false);
         led.GuardSeesPlayer(false);
     }
 }

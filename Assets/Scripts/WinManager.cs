@@ -31,7 +31,7 @@ public class WinManager : MonoBehaviour
             // display gameplay time 
             GameManagement.currentMode = GameManagement.GameMode.UIWin;
             winCanvas.SetActive(true);
-            GameManagement.guardsActive = false;
+            GameManagement.gameplayActive = false;
             StartCoroutine(CanClick());
         }
     }
@@ -39,7 +39,7 @@ public class WinManager : MonoBehaviour
     {
         loseCanvas.SetActive(true);
         GameManagement.currentMode = GameManagement.GameMode.UIWin;
-        GameManagement.guardsActive = false;
+        GameManagement.gameplayActive = false;
         StartCoroutine(CanClick());
     }
 

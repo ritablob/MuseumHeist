@@ -20,7 +20,7 @@ public class CameraBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (!GameManagement.guardsActive) return;
+        if (!GameManagement.gameplayActive) return;
         rayStartPosition = transform.position;
         ray = new Ray(rayStartPosition, player.position - rayStartPosition);
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))

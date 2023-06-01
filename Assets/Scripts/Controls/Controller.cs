@@ -5,6 +5,14 @@ using System.IO.Ports;
 using System.Threading;
 using System;
 
+/// <summary>
+/// handles all comms between arduino and unity
+/// opens & closes the port
+/// hands over incoming data from arduino to other scripts via EventManager
+/// sends data to arduino (receives info of what to send via EventManager)
+/// the Arduino_Controller script sits on the GameManager object (which is don't destroy on load, same in every scene)
+/// </summary>
+
 public class Controller : MonoBehaviour
 {
     private static string port = "COM3";

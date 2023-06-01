@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// manages events and their listeners using Singleton design pattern
+/// adds and removes listeners for specific eventIDs (dictionary that maps event IDs (strings) to list of EventListeners)
+/// triggers listeners for eventIDs by notifying the registered listeners (via EventGo)
+/// </summary>
+
 public class EventManager
 {
     private static EventManager instance;

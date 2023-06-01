@@ -2,24 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// controls led light
+/// different speeds (duration of light on/off in ms) for whether the guard sees the player or not and how close they are
+/// measures time passed in update function with time.deltaTime
+/// tells controller to send message to arduino to turn led on/off after x amount of time has passed
+/// </summary>
+
 public class LEDBlinking : MonoBehaviour
 {
     // time measured in ms
+    // variables for testing:
     [SerializeField] private float minTimePassed = 200f;
     [SerializeField] private float maxTimePassed = 3000f;
     [SerializeField] private float incrementSteps = 100f;
+
     [SerializeField] private float currentSpeed = 800f;
     [SerializeField] private float timePassed = 0;
-    private GameplayController controller;
-
-    bool ledOn = false;
 
     [Space]
     [SerializeField] private Transform guard;
     [SerializeField] private Transform player;
-    bool guardSeesPlayer;
 
-    [Space]
+    private GameplayController controller;
+    bool guardSeesPlayer;
+    bool ledOn = false;
+
+    [Space] // variables for the different blinking speeds
     [SerializeField] private float calm = 1500f;
     [SerializeField] private float calmNearRobot = 700f;
     [SerializeField] private float seen10 = 400f;
@@ -36,7 +45,7 @@ public class LEDBlinking : MonoBehaviour
     void Update()
     {
         if (!GameManagement.portOpen) return;
-        if (!GameManagement.guardsActive) return;
+        if (!GameManagement.gameplayActive) return;
 
         timePassed += (Time.deltaTime*1000f);
 

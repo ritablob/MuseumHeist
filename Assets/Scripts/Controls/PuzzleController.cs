@@ -1,9 +1,16 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// controller script during puzzle game
+/// receives data (string message) from controller script via event manager
+/// holds reference to the puzzle manager and tells it when the rotary encoder was moved (up or down)
+/// has cooldown for the rotary encoder so the movement is not too erratic
+/// </summary>
+
 public class PuzzleController : MonoBehaviour, IArduinoInput
 {
-    private PuzzleManager gridManager;
+    private PuzzleManager puzzleManager;
     public int lastSavedRotation = 0;
     bool canRotate = true;
     float rotCooldown = 0.2f;
@@ -13,7 +20,7 @@ public class PuzzleController : MonoBehaviour, IArduinoInput
     private void Start()
     {
         EventManager.Instance.AddEventListener("CONTROLLER", ControllerListener);
-        gridManager = GetComponent<PuzzleManager>();
+        puzzleManager = GetComponent<PuzzleManager>();
 
         canRotate = true;
         lastSavedRotation = PlayerPrefs.GetInt("LastRotation");
@@ -44,7 +51,7 @@ public class PuzzleController : MonoBehaviour, IArduinoInput
             case "Button Move Pressed":
                 if (canClick) 
                 {
-                    gridManager.MoveTile();
+                    puzzleManager.MoveTile();
                     StartCoroutine(ClickCooldown());
                 }
                 break;
@@ -60,7 +67,7 @@ public class PuzzleController : MonoBehaviour, IArduinoInput
                     }
                     lastSavedRotation = int.Parse(message);
                     StartCoroutine(RotCooldown());
-                    gridManager.SelectTile(up);
+                    puzzleManager.SelectTile(up);
                 }
                 else
                 {

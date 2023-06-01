@@ -1,6 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// central hub for scene loading and important variables
+/// sits on game object GameManager which is don't destroy on load
+/// bool for whether a port to arduino is already open
+/// enum for which mode the game is currently in (wheter the player is currently walking around in museum, doing puzzle, etc)
+/// bool for whether the gameplay is currently active (so the guard and player don't move in pause menu or during the puzzle)
+/// </summary>
+
 public class GameManagement : MonoBehaviour
 {
     [SerializeField] string defaultPortName = "COM3";
@@ -15,7 +23,7 @@ public class GameManagement : MonoBehaviour
 
     public static GameMode currentMode = GameMode.Menu;
     public static bool portOpen = false;
-    public static bool guardsActive;
+    public static bool gameplayActive;
     public static bool playWithKeys;
 
     private void Awake()
@@ -33,7 +41,7 @@ public class GameManagement : MonoBehaviour
             if (SceneManager.GetActiveScene().buildIndex == 1)
                 currentMode = GameMode.Gameplay;
             portOpen = false;
-            guardsActive = true;
+            gameplayActive = true;
             playWithKeys = false;
         }
     }
@@ -43,7 +51,7 @@ public class GameManagement : MonoBehaviour
         Debug.Log("Load Game Scene");
         SceneManager.LoadScene(1);
         currentMode = GameMode.Gameplay;
-        guardsActive = true;
+        gameplayActive = true;
     }
 
     public static void LoadStartMenu()
@@ -55,9 +63,11 @@ public class GameManagement : MonoBehaviour
 
     private void Update()
     {
+#if UNITY_EDITOR // for testing
         if (Input.GetKeyDown(KeyCode.O) && !portOpen && SceneManager.GetActiveScene().buildIndex != 0 && !playWithKeys)
         {
             EventManager.Instance.EventGo("CONTROLLER", "OpenConnection", defaultPortName);
         }
+#endif
     }
 }

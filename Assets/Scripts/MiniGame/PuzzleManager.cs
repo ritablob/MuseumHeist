@@ -56,7 +56,7 @@ public class PuzzleManager : MonoBehaviour
 
     public void SetUpMiniGame()
     {
-        GameManagement.guardsActive = false;
+        GameManagement.gameplayActive = false;
         GameManagement.currentMode = GameManagement.GameMode.Puzzle;
         puzzleObject.SetActive(true);
 
@@ -174,7 +174,7 @@ public class PuzzleManager : MonoBehaviour
         won = true;
 
         puzzleObject.SetActive(false);
-        GameManagement.guardsActive = true;
+        GameManagement.gameplayActive = true;
         GameManagement.currentMode = GameManagement.GameMode.Gameplay;
 
         if (invisCounterObj != null) { invisCounterObj.SetActive(true); }

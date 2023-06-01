@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// handles pause menu --> accessed by pressing ESCAPE and only really needed during testing
+/// </summary>
+
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
@@ -22,7 +26,7 @@ public class PauseMenu : MonoBehaviour
             else
             {
                 pauseMenu.SetActive(true);
-                GameManagement.guardsActive = false;
+                GameManagement.gameplayActive = false;
             }
         }
     }
@@ -30,7 +34,7 @@ public class PauseMenu : MonoBehaviour
     public void ResumeButton()
     {
         pauseMenu.SetActive(false);
-        GameManagement.guardsActive = true;
+        GameManagement.gameplayActive = true;
     }
 
     public void MenuButton()
